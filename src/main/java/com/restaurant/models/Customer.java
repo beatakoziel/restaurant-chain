@@ -17,6 +17,6 @@ public class Customer
     Set<Reservation> reservations = new TreeSet<>();
 
     @OneToOne
-    Person personId;
+    User userId;
 
 }
