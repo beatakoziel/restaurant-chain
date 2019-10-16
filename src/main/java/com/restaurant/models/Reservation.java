@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Reservation implements Comparable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int reservationId;
+    private Long reservationId;
 
     @Column(nullable = false)
     private LocalDateTime dateReservation;
@@ -27,7 +27,7 @@ public class Reservation implements Comparable {
 
         if (o instanceof Reservation){
             Reservation reservation = (Reservation) o;
-            if (dateReservation.equals(reservation.dateReservation))
+            if (dateReservation.isEqual(reservation.dateReservation))
                 return 0;
             else if (dateReservation.isAfter(reservation.dateReservation))
                 return 1;

@@ -1,20 +1,16 @@
 package com.restaurant.models;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "customer_order")
+@Table(name = "orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long orderId;
-
-    @Column(name = "date_order", nullable = false)
-    private LocalDateTime dateOrder;
+    private Long orderId;
 
     @Column(nullable = false)
     private double bill;
@@ -38,7 +34,7 @@ public class Order {
     public boolean equals(Object o){
         if (o instanceof Order){
             Order order = (Order) o;
-            return orderId == order.orderId && dateOrder.isEqual(order.dateOrder);
+            return orderId == order.orderId && bill == order.bill;
         }
         return false;
     }

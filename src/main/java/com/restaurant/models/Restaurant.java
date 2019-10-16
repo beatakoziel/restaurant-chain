@@ -10,7 +10,7 @@ public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int restaurantId;
+    private Long restaurantId;
 
     @Column(nullable = false)
     private String city;

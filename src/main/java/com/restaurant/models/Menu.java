@@ -8,7 +8,7 @@ public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int dishId;
+    private Long dishId;
 
     @Column(nullable = false)
     private String dishDescription;

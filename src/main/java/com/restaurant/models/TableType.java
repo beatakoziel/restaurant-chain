@@ -10,13 +10,10 @@ public class TableType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int tableId;
+    private Long tableId;
 
     @Column(nullable = false)
     private int seatsNumber;
-
-    @Column(nullable = false)
-    private boolean availability;
 
     @ManyToOne
     private Restaurant restaurantId;
