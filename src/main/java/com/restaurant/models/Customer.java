@@ -6,17 +6,16 @@ import java.util.TreeSet;
 
 @Entity
 @Table(name = "customer")
-public class Customer
-{
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
 
     @OneToMany(mappedBy = "reservationId")
-    Set<Reservation> reservations = new TreeSet<>();
+    private Set<Reservation> reservations = new TreeSet<>();
 
     @OneToOne
-    User userId;
+    private User userId;
 
 }

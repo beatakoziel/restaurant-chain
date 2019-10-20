@@ -27,8 +27,8 @@ public class TableType {
     }
 
     @Override
-    public boolean equals(Object o){
-        if (o instanceof TableType){
+    public boolean equals(Object o) {
+        if (o instanceof TableType) {
             TableType tableType = (TableType) o;
             return tableId == tableType.tableId && seatsNumber == tableType.seatsNumber;
         }

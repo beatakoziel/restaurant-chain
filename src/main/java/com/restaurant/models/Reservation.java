@@ -25,7 +25,7 @@ public class Reservation implements Comparable {
     @Override
     public int compareTo(Object o) {
 
-        if (o instanceof Reservation){
+        if (o instanceof Reservation) {
             Reservation reservation = (Reservation) o;
             if (dateReservation.isEqual(reservation.dateReservation))
                 return 0;

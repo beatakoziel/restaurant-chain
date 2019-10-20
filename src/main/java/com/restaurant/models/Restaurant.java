@@ -10,7 +10,7 @@ public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long restaurantId;
+    private Integer restaurantId;
 
     @Column(nullable = false)
     private String city;
@@ -19,5 +19,5 @@ public class Restaurant {
     private String street;
 
     @OneToMany(mappedBy = "restaurantId")
-    Set<TableType> tables = new HashSet<>();
+    private Set<TableType> tables = new HashSet<>();
 }

@@ -1,13 +1,13 @@
-package com.restaurant.controller;
+package com.restaurant.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MainController {
+public class TestController {
 
     @RequestMapping("/")
-    public String index(){
+    public String index() {
         return "Hello World";
     }
 }
