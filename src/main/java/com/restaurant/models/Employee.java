@@ -8,8 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employee")
-public class Employee
-{
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +21,9 @@ public class Employee
     private double salary;
 
     @OneToMany(mappedBy = "orderId")
-    Set<Order> orderSet = new HashSet<>();
+    private Set<Order> orderSet = new HashSet<>();
 
     @OneToOne
-    User userId;
+    private User userId;
 
 }

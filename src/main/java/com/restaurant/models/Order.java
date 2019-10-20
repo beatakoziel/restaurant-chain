@@ -23,7 +23,7 @@ public class Order {
 
     @ManyToMany
     @JoinTable(name = "order_menu")
-    private List<Menu> orderDishes = new ArrayList<>();
+    private List<Dish> orderDishes = new ArrayList<>();
 
     @Override
     public int hashCode() {
@@ -31,8 +31,8 @@ public class Order {
     }
 
     @Override
-    public boolean equals(Object o){
-        if (o instanceof Order){
+    public boolean equals(Object o) {
+        if (o instanceof Order) {
             Order order = (Order) o;
             return orderId == order.orderId && bill == order.bill;
         }
