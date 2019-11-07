@@ -1,9 +1,7 @@
 package com.restaurant.models;
 
-import com.restaurant.models.enums.JobPosition;
-
 import javax.persistence.*;
-import java.util.HashSet;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
@@ -14,16 +12,21 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long employeeId;
 
-    @Enumerated(EnumType.STRING)
-    private JobPosition jobPosition;
+    @OneToOne
+    private User userId;
+
+    @NotBlank
+    private String name;
+
+    @NotBlank
+    private String surname;
 
     @Column(nullable = false)
     private double salary;
 
     @OneToMany(mappedBy = "orderId")
-    private Set<Order> orderSet = new HashSet<>();
+    private Set<Order> orderSet;
 
-    @OneToOne
-    private User userId;
+
 
 }

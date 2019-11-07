@@ -1,11 +1,13 @@
 package com.restaurant.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "orders")
+@Data
 public class Order {
 
     @Id
@@ -23,7 +25,7 @@ public class Order {
 
     @ManyToMany
     @JoinTable(name = "order_menu")
-    private List<Dish> orderDishes = new ArrayList<>();
+    private List<Dish> orderDishes;
 
     @Override
     public int hashCode() {

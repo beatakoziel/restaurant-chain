@@ -1,7 +1,6 @@
 package com.restaurant.models;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,5 +18,5 @@ public class Restaurant {
     private String street;
 
     @OneToMany(mappedBy = "restaurantId")
-    private Set<TableType> tables = new HashSet<>();
+    private Set<TableType> tables;
 }

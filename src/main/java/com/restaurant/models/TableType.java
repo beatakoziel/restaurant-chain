@@ -2,7 +2,6 @@ package com.restaurant.models;
 
 import javax.persistence.*;
 import java.util.Set;
-import java.util.TreeSet;
 
 @Entity
 @Table(name = "table_type")
@@ -19,7 +18,7 @@ public class TableType {
     private Restaurant restaurantId;
 
     @OneToMany(mappedBy = "reservationId")
-    private Set<Reservation> reservationSet = new TreeSet<>();
+    private Set<Reservation> reservationSet;
 
     @Override
     public int hashCode() {

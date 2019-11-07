@@ -1,13 +1,13 @@
 package com.restaurant.models;
 
-import com.restaurant.models.enums.RoleName;
+import com.restaurant.models.authority.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Data
 @Entity
@@ -19,10 +19,7 @@ public class User {
     private Long personId;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
-    private String surname;
+    private String username;
 
     @NotBlank
     @Size(min = 5)
@@ -35,14 +32,8 @@ public class User {
     @Column(nullable = false)
     private String phone;
 
-    @Enumerated(EnumType.STRING)
-    private RoleName role;
+    @ManyToMany
+    private Set<Role> roles;
 
-    public User(String name, String surname, @NotBlank @Size(min = 5) String password, @Email String email, String phone) {
-        this.name = name;
-        this.surname = surname;
-        this.password = password;
-        this.email = email;
-        this.phone = phone;
-    }
+
 }

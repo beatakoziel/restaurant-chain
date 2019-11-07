@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Entity
@@ -19,12 +19,14 @@ public class Dish {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dishId;
 
-    @Column(nullable = false)
+    @NotBlank
     private String dishName;
 
-    @Column(nullable = false)
     private String dishDescription;
 
-    @Column(nullable = false)
+    @NotBlank
     private double grossPrice;
+
+    @NotBlank
+    private int cookingTime;
 }
