@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DishServiceImpl implements DishService {
 
-    private final DishRepository dishRepository;
+    private DishRepository dishRepository;
 
     @Override
     public Long addDishToMenu(DishCommand dishCommand) {
