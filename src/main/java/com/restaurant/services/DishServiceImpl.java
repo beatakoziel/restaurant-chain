@@ -15,7 +15,7 @@ public class DishServiceImpl implements DishService {
     private final DishRepository dishRepository;
 
     @Override
-    public DishView addDishToMenu(DishCommand dishCommand) {
+    public Long addDishToMenu(DishCommand dishCommand) {
         return dishRepository.saveDish(dishCommand);
     }
 

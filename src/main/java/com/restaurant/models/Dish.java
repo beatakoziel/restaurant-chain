@@ -6,11 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 
 @Data
 @Entity
 @Builder
-@Table(name = "menu")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Dish {

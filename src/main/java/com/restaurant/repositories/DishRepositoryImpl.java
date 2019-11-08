@@ -19,21 +19,17 @@ public class DishRepositoryImpl implements DishRepository {
     private final DishJPARepository dishJPARepository;
 
     @Override
-    public DishView saveDish(DishCommand dishCommand) {
-        return DishMapper.mapDishToDishView(
-                dishJPARepository.save(buildDishFromCommand(dishCommand))
-        );
+    public Long saveDish(DishCommand dishCommand) {
+        return dishJPARepository.save(buildDishFromCommand(dishCommand)).getDishId();
+
     }
 
     @Override
     public DishView updateDish(Long dishId, DishCommand dishCommand) {
-        Dish dish = dishJPARepository.findById(dishId)
-                .orElseThrow(() -> new DishNotFoundException(dishId));
-        dish.setDishName(dishCommand.getDishName());
-        dish.setDishDescription(dishCommand.getDishDescription());
-        dish.setGrossPrice(dishCommand.getGrossPrice());
-        dishJPARepository.save(dish);
-        return DishMapper.mapDishToDishView(dish);
+        Dish dish = getDish(dishId);
+        Dish updatedDish = getUpdatedDish(dishCommand, dish);
+        dishJPARepository.save(updatedDish);
+        return DishMapper.mapDishToDishView(updatedDish);
     }
 
     @Override
@@ -59,5 +55,17 @@ public class DishRepositoryImpl implements DishRepository {
                 .dishDescription(dishCommand.getDishDescription())
                 .grossPrice(dishCommand.getGrossPrice())
                 .build();
+    }
+
+    private Dish getDish(Long dishId) {
+        return dishJPARepository.findById(dishId)
+                .orElseThrow(() -> new DishNotFoundException(dishId));
+    }
+
+    private Dish getUpdatedDish(DishCommand dishCommand, Dish dish) {
+        dish.setDishName(dishCommand.getDishName());
+        dish.setDishDescription(dishCommand.getDishDescription());
+        dish.setGrossPrice(dishCommand.getGrossPrice());
+        return dish;
     }
 }

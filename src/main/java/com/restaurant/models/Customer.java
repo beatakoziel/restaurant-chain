@@ -1,11 +1,11 @@
 package com.restaurant.models;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 import java.util.Set;
 import java.util.TreeSet;
 
 @Entity
-@Table(name = "customer")
 public class Customer {
 
     @Id
@@ -16,6 +16,6 @@ public class Customer {
     private Set<Reservation> reservations = new TreeSet<>();
 
     @OneToOne
-    private User userId;
+    private User user;
 
 }

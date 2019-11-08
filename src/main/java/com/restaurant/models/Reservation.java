@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "reservation")
+@javax.persistence.Table(name = "reservation")
 public class Reservation implements Comparable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,14 +17,18 @@ public class Reservation implements Comparable {
     private Customer customer;
 
     @ManyToOne
-    private TableType tableType;
+    private Table table;
 
     @OneToOne
     private Order order;
 
     @Override
-    public int compareTo(Object o) {
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
 
+    @Override
+    public int compareTo(Object o) {
         if (o instanceof Reservation) {
             Reservation reservation = (Reservation) o;
             if (dateReservation.isEqual(reservation.dateReservation))
@@ -34,7 +38,6 @@ public class Reservation implements Comparable {
             else if (dateReservation.isBefore(reservation.dateReservation))
                 return -1;
         }
-
         return -1;
     }
 }

@@ -16,17 +16,17 @@ public class DishController {
 
     private final DishService dishService;
 
-    @PostMapping
-    public DishView addDishToMenu(@RequestBody @Valid DishCommand dishCommand) {
+    @PostMapping("/dish")
+    public Long addDishToMenu(@RequestBody @Valid DishCommand dishCommand) {
         return dishService.addDishToMenu(dishCommand);
     }
 
-    @PutMapping("/{dishId}")
+    @PutMapping("/dish/{dishId}")
     public DishView updateDish(@PathVariable Long dishId, @RequestBody @Valid DishCommand dishCommand) {
         return dishService.updateDish(dishId, dishCommand);
     }
 
-    @GetMapping("/{dishId}")
+    @GetMapping("/dish/{dishId}")
     public DishView getDishById(@PathVariable Long dishId) {
         return dishService.getDishById(dishId);
     }

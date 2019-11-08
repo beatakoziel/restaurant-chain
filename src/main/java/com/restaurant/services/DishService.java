@@ -6,7 +6,7 @@ import com.restaurant.views.DishView;
 import java.util.List;
 
 public interface DishService {
-    DishView addDishToMenu(DishCommand dishCommand);
+    Long addDishToMenu(DishCommand dishCommand);
 
     DishView updateDish(Long dishId, DishCommand dishCommand);
 

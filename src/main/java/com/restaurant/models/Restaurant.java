@@ -1,11 +1,16 @@
 package com.restaurant.models;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
+@Builder
 @Entity
-@Table(name = "restaurant")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Restaurant {
 
     @Id
@@ -18,6 +23,6 @@ public class Restaurant {
     @Column(nullable = false)
     private String street;
 
-    @OneToMany(mappedBy = "restaurantId")
-    private Set<TableType> tables = new HashSet<>();
+    @OneToMany(mappedBy = "restaurant")
+    private Set<Table> tables = new HashSet<>();
 }

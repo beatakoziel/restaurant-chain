@@ -6,7 +6,7 @@ import com.restaurant.views.DishView;
 import java.util.List;
 
 public interface DishRepository {
-    DishView saveDish(DishCommand dishCommand);
+    Long saveDish(DishCommand dishCommand);
 
     DishView updateDish(Long dishId, DishCommand dishCommand);
 

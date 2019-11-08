@@ -5,8 +5,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Entity
-@Table(name = "table_type")
-public class TableType {
+@javax.persistence.Table(name = "restaurants_table")
+public class Table {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class TableType {
     private int seatsNumber;
 
     @ManyToOne
-    private Restaurant restaurantId;
+    private Restaurant restaurant;
 
     @OneToMany(mappedBy = "reservationId")
     private Set<Reservation> reservationSet = new TreeSet<>();
@@ -28,9 +28,9 @@ public class TableType {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof TableType) {
-            TableType tableType = (TableType) o;
-            return tableId == tableType.tableId && seatsNumber == tableType.seatsNumber;
+        if (o instanceof Table) {
+            Table table = (Table) o;
+            return tableId.equals(table.tableId) && seatsNumber == table.seatsNumber;
         }
         return false;
     }

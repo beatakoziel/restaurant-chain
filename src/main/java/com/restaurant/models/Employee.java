@@ -3,11 +3,11 @@ package com.restaurant.models;
 import com.restaurant.models.enums.JobPosition;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "employee")
 public class Employee {
 
     @Id
@@ -24,6 +24,6 @@ public class Employee {
     private Set<Order> orderSet = new HashSet<>();
 
     @OneToOne
-    private User userId;
+    private User user;
 
 }

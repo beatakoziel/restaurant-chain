@@ -1,11 +1,12 @@
 package com.restaurant.models;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "customers_order")
 public class Order {
 
     @Id
