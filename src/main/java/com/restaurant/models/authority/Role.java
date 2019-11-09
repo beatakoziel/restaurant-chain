@@ -2,24 +2,26 @@ package com.restaurant.models.authority;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String roleName;
+    @Enumerated(EnumType.STRING)
+    private RoleName name;
 
-    public Role(String roleName) {
-        this.roleName = roleName;
+
+
+    public Role(RoleName name) {
+        this.name = name;
     }
 }

@@ -3,16 +3,17 @@ package com.restaurant.models;
 import com.restaurant.models.authority.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Data
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -23,7 +24,6 @@ public class User {
     private String username;
 
     @NotBlank
-    @Size(min = 5)
     private String password;
 
     @Email
@@ -36,5 +36,15 @@ public class User {
     @ManyToMany
     private Set<Role> roles;
 
+    public User(String username, @NotBlank String password, @Email String email, String phone, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.roles = roles;
+    }
 
+    public Long getPersonId() {
+        return personId;
+    }
 }
