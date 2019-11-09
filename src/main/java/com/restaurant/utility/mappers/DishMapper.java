@@ -13,6 +13,7 @@ public final class DishMapper {
                 .dishName(dish.getDishName())
                 .dishDescription(dish.getDishDescription())
                 .grossPrice(dish.getGrossPrice())
+                .cookingTime(dish.getCookingTime())
                 .build();
     }
 }

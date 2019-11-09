@@ -66,6 +66,7 @@ public class DishRepositoryImpl implements DishRepository {
         dish.setDishName(dishCommand.getDishName());
         dish.setDishDescription(dishCommand.getDishDescription());
         dish.setGrossPrice(dishCommand.getGrossPrice());
+        dish.setCookingTime(dishCommand.getCookingTime());
         return dish;
     }
 }

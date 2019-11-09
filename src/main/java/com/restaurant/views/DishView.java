@@ -10,4 +10,5 @@ public class DishView {
     private String dishName;
     private String dishDescription;
     private double grossPrice;
+    private int cookingTime;
 }

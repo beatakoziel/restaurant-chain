@@ -1,9 +1,6 @@
 package com.restaurant.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,11 +22,12 @@ public class Dish {
     @NotBlank
     private String dishName;
 
+    @NotBlank
     private String dishDescription;
 
-    @NotBlank
+    @NonNull
     private double grossPrice;
 
-    @NotBlank
+    @NonNull
     private int cookingTime;
 }

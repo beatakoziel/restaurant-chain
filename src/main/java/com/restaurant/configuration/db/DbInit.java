@@ -1,4 +1,4 @@
-package com.restaurant.db;
+package com.restaurant.configuration.db;
 
 import com.restaurant.models.authority.Role;
 import com.restaurant.repositories.jpa.RoleJPARepository;
