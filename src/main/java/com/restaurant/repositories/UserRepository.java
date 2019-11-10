@@ -11,7 +11,7 @@ public interface UserRepository {
 
     ResponseEntity<String> saveUser(SignUpDTO signupDTO);
 
-    UserPrincipal updateUser(Long userId, SignUpDTO signupDTO);
+    ResponseEntity<UserPrincipal> updateUser(Long userId, SignUpDTO signupDTO);
 
     UserPrincipal getUserById(Long userId);
 

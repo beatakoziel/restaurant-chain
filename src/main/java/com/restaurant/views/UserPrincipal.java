@@ -1,13 +1,12 @@
 package com.restaurant.views;
 
+import com.restaurant.models.Reservation;
 import com.restaurant.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
@@ -17,16 +16,18 @@ public class UserPrincipal implements UserDetails {
     private String email;
     private String phone;
     private String password;
+    private Set<Reservation> reservations;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    private UserPrincipal(Long id, String username, String email, String phone, String password, Collection<? extends GrantedAuthority> authorities) {
+    private UserPrincipal(Long id, String username, String email, String phone, String password, Collection<? extends GrantedAuthority> authorities, Set<Reservation> reservations) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.phone = phone;
         this.password = password;
         this.authorities = authorities;
+        this.reservations = reservations;
     }
 
     public static UserPrincipal build(User user) {
@@ -41,7 +42,8 @@ public class UserPrincipal implements UserDetails {
                 user.getEmail(),
                 user.getPhone(),
                 user.getPassword(),
-                authorities
+                authorities,
+                user.getReservations()
         );
     }
 
@@ -90,6 +92,10 @@ public class UserPrincipal implements UserDetails {
 
     public String getPhone() {
         return phone;
+    }
+
+    public Set<Reservation> getReservations() {
+        return reservations;
     }
 
     @Override

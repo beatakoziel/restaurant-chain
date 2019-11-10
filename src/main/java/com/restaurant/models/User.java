@@ -38,12 +38,16 @@ public class User {
     @ManyToMany
     private Set<Role> roles;
 
-    public User(String username, @NotBlank String password, @Email String email, String phone, Set<Role> roles) {
+    @OneToMany(mappedBy = "reservationId")
+    private Set<Reservation> reservations;
+
+    public User(String username, @NotBlank String password, @Email String email, String phone, Set<Role> roles,Set<Reservation> reservations) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.phone = phone;
         this.roles = roles;
+        this.reservations = reservations;
     }
 
     public Long getPersonId() {

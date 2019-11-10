@@ -42,51 +42,28 @@ public class UserRepositoryImpl implements UserRepository {
         }
 
         Set<Role> roles = new HashSet<>();
-
-        signUpDTO.getRoles().forEach(role -> {
-            switch (role) {
-                case "admin":
-                    Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Admin role not found"));
-                    roles.add(adminRole);
-                    break;
-                case "cook":
-                    Role cookRole = roleRepository.findByName(RoleName.ROLE_COOK)
-                            .orElseThrow(() -> new RuntimeException("Cook role not found"));
-                    roles.add(cookRole);
-                    break;
-                case "waiter":
-                    Role waiterRole = roleRepository.findByName(RoleName.ROLE_WAITER)
-                            .orElseThrow(() -> new RuntimeException("Waiter role not found"));
-                    roles.add(waiterRole);
-                    break;
-                case "user":
-                    Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                            .orElseThrow(() -> new RuntimeException("User role not found"));
-                    roles.add(userRole);
-                    break;
-
-            }
-        });
-
+        roles.add(roleRepository
+                .findByName(RoleName.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("User role not found")));
 
         User user = new User(signUpDTO.getUsername(),
                 passwordEncoder.encode(signUpDTO.getPassword()),
                 signUpDTO.getEmail(),
                 signUpDTO.getPhone(),
-                roles);
+                roles,new HashSet<>());
 
         userRepository.save(user);
         return ResponseEntity.ok("User registered.");
     }
 
     @Override
-    public UserPrincipal updateUser(Long userId, SignUpDTO signupDTO) {
+    public ResponseEntity<UserPrincipal> updateUser(Long userId, SignUpDTO signupDTO) {
         User user = userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found" + signupDTO.getUsername()));
-        user.setPassword(signupDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
         user.setEmail(signupDTO.getEmail());
         user.setPhone(signupDTO.getPhone());
-        return UserMapper.mapUserToUserPrincipal(user);
+        userRepository.save(user);
+        return ResponseEntity.ok(UserMapper.mapUserToUserPrincipal(user));
     }
 
     @Override

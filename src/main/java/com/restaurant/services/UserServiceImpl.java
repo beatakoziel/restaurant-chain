@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public UserPrincipal updateUser(Long userId, SignUpDTO signupDTO) {
+    public ResponseEntity<UserPrincipal> updateUser(Long userId, SignUpDTO signupDTO) {
         return userRepository.updateUser(userId, signupDTO);
     }
 

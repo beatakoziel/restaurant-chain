@@ -16,7 +16,7 @@ public class Opinion {
     private Long id;
 
     @OneToOne
-    private Customer customer;
+    private User customer;
 
     @OneToOne
     private Restaurant restaurant;

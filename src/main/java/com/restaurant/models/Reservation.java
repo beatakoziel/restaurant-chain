@@ -14,7 +14,7 @@ public class Reservation implements Comparable {
     private LocalDateTime dateReservation;
 
     @ManyToOne
-    private Customer customer;
+    private User customer;
 
     @ManyToOne
     private Table table;

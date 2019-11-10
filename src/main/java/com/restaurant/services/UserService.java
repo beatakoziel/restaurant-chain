@@ -10,7 +10,7 @@ public interface UserService {
 
     ResponseEntity<String> createUser(SignUpDTO signupDTO);
 
-    UserPrincipal updateUser(Long userId, SignUpDTO signupDTO);
+    ResponseEntity<UserPrincipal> updateUser(Long userId, SignUpDTO signupDTO);
 
     UserPrincipal getUserById(Long userId);
 
