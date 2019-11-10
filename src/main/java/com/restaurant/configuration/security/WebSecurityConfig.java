@@ -2,7 +2,7 @@ package com.restaurant.configuration.security;
 
 import com.restaurant.configuration.jwt.JwtAuthEntryPoint;
 import com.restaurant.configuration.jwt.JwtAuthTokenFilter;
-import com.restaurant.repositories.UserPrincipalDetailsService;
+import com.restaurant.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserPrincipalDetailsService userDetailsService;
+    private UserServiceImpl userDetailsService;
 
     @Autowired
     private JwtAuthEntryPoint unauthorizedHandler;
@@ -56,8 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/menu/*").permitAll()//temp
                 .antMatchers("/restaurant/*").permitAll()//temp
-                .antMatchers("/signup").permitAll()
-                .antMatchers("/signin").permitAll()
+                .antMatchers("/index/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)

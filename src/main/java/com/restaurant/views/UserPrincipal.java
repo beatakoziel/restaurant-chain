@@ -1,7 +1,6 @@
 package com.restaurant.views;
 
 import com.restaurant.models.User;
-import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
 public class UserPrincipal implements UserDetails {
 
     private Long id;
@@ -22,18 +20,27 @@ public class UserPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
+    private UserPrincipal(Long id, String username, String email, String phone, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.authorities = authorities;
+    }
+
     public static UserPrincipal build(User user) {
 
         List<GrantedAuthority> authorities =
                 user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .collect(Collectors.toList());
+                        .collect(Collectors.toList());
 
         return new UserPrincipal(
                 user.getPersonId(),
                 user.getUsername(),
                 user.getEmail(),
-                user.getPassword(),
                 user.getPhone(),
+                user.getPassword(),
                 authorities
         );
     }
@@ -71,6 +78,18 @@ public class UserPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     @Override

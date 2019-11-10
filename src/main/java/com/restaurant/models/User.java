@@ -2,6 +2,7 @@ package com.restaurant.models;
 
 import com.restaurant.models.authority.Role;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Data
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -27,7 +29,7 @@ public class User {
     private String password;
 
     @Email
-    @Column(nullable = false)
+    @NotBlank
     private String email;
 
     @Column(nullable = false)

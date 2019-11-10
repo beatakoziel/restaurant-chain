@@ -1,7 +1,7 @@
 package com.restaurant.configuration.jwt;
 
 
-import com.restaurant.repositories.UserPrincipalDetailsService;
+import com.restaurant.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +21,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
     private JwtProvider provider;
 
     @Autowired
-    private UserPrincipalDetailsService userDetailsService;
+    private UserServiceImpl userDetailsService;
 
 
     @Override
