@@ -1,6 +1,6 @@
 package com.restaurant.services;
 
-import com.restaurant.commands.request.SignUpDTO;
+import com.restaurant.commands.request.UserDTO;
 import com.restaurant.repositories.UserRepository;
 import com.restaurant.views.UserPrincipal;
 import lombok.AllArgsConstructor;
@@ -24,13 +24,18 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public ResponseEntity<String> createUser(SignUpDTO signupDTO) {
-        return userRepository.saveUser(signupDTO);
+    public ResponseEntity<String> createUser(UserDTO userDTO) {
+        return userRepository.saveUser(userDTO);
     }
 
     @Override
-    public ResponseEntity<UserPrincipal> updateUser(Long userId, SignUpDTO signupDTO) {
-        return userRepository.updateUser(userId, signupDTO);
+    public ResponseEntity deleteUser(Long userId) {
+        return userRepository.deleteUser(userId);
+    }
+
+    @Override
+    public ResponseEntity<UserPrincipal> updateUser(Long userId, UserDTO userDTO) {
+        return userRepository.updateUser(userId, userDTO);
     }
 
     @Override

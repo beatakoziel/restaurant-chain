@@ -1,6 +1,6 @@
 package com.restaurant.controllers;
 
-import com.restaurant.commands.request.SignUpDTO;
+import com.restaurant.commands.request.UserDTO;
 import com.restaurant.services.UserService;
 import com.restaurant.views.UserPrincipal;
 import lombok.AllArgsConstructor;
@@ -18,8 +18,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> registerUser(@RequestBody @Valid SignUpDTO signupDTO) {
-        return userService.createUser(signupDTO);
+    public ResponseEntity<String> registerUser(@RequestBody @Valid UserDTO userDTO) {
+        return userService.createUser(userDTO);
     }
 
     @GetMapping("/users/{userId}")
@@ -30,8 +30,7 @@ public class UserController {
 
     @PutMapping("/users/{userId}")
     @PreAuthorize("#userId == principal.id")
-    public ResponseEntity<UserPrincipal> updateUser(@PathVariable Long userId, @RequestBody @Valid SignUpDTO signUpDTO) {
-
-        return userService.updateUser(userId, signUpDTO);
+    public ResponseEntity<UserPrincipal> updateUser(@PathVariable Long userId, @RequestBody @Valid UserDTO userDTO) {
+        return userService.updateUser(userId, userDTO);
     }
 }

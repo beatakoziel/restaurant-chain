@@ -1,9 +1,10 @@
 package com.restaurant.repositories;
 
-import com.restaurant.commands.request.SignUpDTO;
+import com.restaurant.commands.request.UserDTO;
 import com.restaurant.models.User;
 import com.restaurant.models.authority.Role;
 import com.restaurant.models.authority.RoleName;
+import com.restaurant.repositories.jpa.EmployeeJPARepository;
 import com.restaurant.repositories.jpa.RoleJPARepository;
 import com.restaurant.repositories.jpa.UserJPARepository;
 import com.restaurant.utility.mappers.UserMapper;
@@ -25,72 +26,83 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
-    private final UserJPARepository userRepository;
+    private final UserJPARepository userJPARepository;
 
-    private final RoleJPARepository roleRepository;
+    private final RoleJPARepository roleJPARepository;
+
+    private final EmployeeJPARepository employeeJPARepository;
 
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public ResponseEntity<String> saveUser(SignUpDTO signUpDTO) {
+    public ResponseEntity<String> saveUser(UserDTO userDTO) {
 
-        if (existsByUsername(signUpDTO.getUsername())) {
+        if (existsByUsername(userDTO.getUsername())) {
             return new ResponseEntity<>("Username already used", HttpStatus.BAD_REQUEST);
         }
-        if (existsByEmail(signUpDTO.getEmail())) {
+        if (existsByEmail(userDTO.getEmail())) {
             return new ResponseEntity<>("Email already used", HttpStatus.BAD_REQUEST);
         }
 
         Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository
+        roles.add(roleJPARepository
                 .findByName(RoleName.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("User role not found")));
 
-        User user = new User(signUpDTO.getUsername(),
-                passwordEncoder.encode(signUpDTO.getPassword()),
-                signUpDTO.getEmail(),
-                signUpDTO.getPhone(),
-                roles,new HashSet<>());
+        User user = new User(userDTO.getUsername(),
+                passwordEncoder.encode(userDTO.getPassword()),
+                userDTO.getEmail(),
+                userDTO.getPhone(),
+                roles, new HashSet<>());
 
-        userRepository.save(user);
+        userJPARepository.save(user);
         return ResponseEntity.ok("User registered.");
     }
 
     @Override
-    public ResponseEntity<UserPrincipal> updateUser(Long userId, SignUpDTO signupDTO) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found" + signupDTO.getUsername()));
+    public ResponseEntity deleteUser(Long userId) {
+        if (employeeJPARepository.existsByUserId(userId))
+            employeeJPARepository.deleteByUserId(userId);
+        userJPARepository.deleteById(userId);
+        return ResponseEntity.ok(HttpStatus.ACCEPTED);
+    }
+
+
+    @Override
+    public ResponseEntity<UserPrincipal> updateUser(Long userId, UserDTO signupDTO) {
+        User user = userJPARepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found" + signupDTO.getUsername()));
         user.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
         user.setEmail(signupDTO.getEmail());
         user.setPhone(signupDTO.getPhone());
-        userRepository.save(user);
+        userJPARepository.save(user);
         return ResponseEntity.ok(UserMapper.mapUserToUserPrincipal(user));
     }
 
     @Override
     public UserPrincipal getUserById(Long userId) {
-        return userRepository.findById(userId).map(UserMapper::mapUserToUserPrincipal).orElseThrow(() -> new UsernameNotFoundException("User not found" + userId));
+        return userJPARepository.findById(userId).map(UserMapper::mapUserToUserPrincipal).orElseThrow(() -> new UsernameNotFoundException("User not found" + userId));
     }
 
     @Override
     public List<UserPrincipal> getAllUsers() {
-        return userRepository.findAll().stream().map(UserMapper::mapUserToUserPrincipal).collect(Collectors.toList());
+        return userJPARepository.findAll().stream().map(UserMapper::mapUserToUserPrincipal).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public UserPrincipal findByUsername(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+        User user = userJPARepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
         return UserPrincipal.build(user);
     }
 
     @Override
     public Boolean existsByUsername(String username) {
-        return userRepository.existsByUsername(username);
+        return userJPARepository.existsByUsername(username);
     }
 
     @Override
     public Boolean existsByEmail(String email) {
-        return userRepository.existsByEmail(email);
+        return userJPARepository.existsByEmail(email);
     }
 
 }
