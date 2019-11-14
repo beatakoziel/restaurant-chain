@@ -3,6 +3,7 @@ package com.restaurant.models;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,13 +13,14 @@ import java.util.Set;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long employeeId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private User userId;
 
     @NotBlank

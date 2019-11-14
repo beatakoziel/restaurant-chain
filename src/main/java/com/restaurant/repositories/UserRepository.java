@@ -11,6 +11,7 @@ public interface UserRepository {
 
     ResponseEntity<String> saveUser(UserDTO userDTO);
 
+    @Transactional
     ResponseEntity deleteUser(Long userId);
 
     ResponseEntity<UserPrincipal> updateUser(Long userId, UserDTO userDTO);

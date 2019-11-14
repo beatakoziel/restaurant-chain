@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -27,5 +26,5 @@ public class Restaurant {
     private String street;
 
     @OneToMany(mappedBy = "restaurant")
-    private Set<Table> tables = new HashSet<>();
+    private Set<Table> tables;
 }

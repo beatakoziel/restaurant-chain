@@ -60,9 +60,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public ResponseEntity deleteUser(Long userId) {
-        if (employeeJPARepository.existsByUserId(userId))
-            employeeJPARepository.deleteByUserId(userId);
         userJPARepository.deleteById(userId);
         return ResponseEntity.ok(HttpStatus.ACCEPTED);
     }

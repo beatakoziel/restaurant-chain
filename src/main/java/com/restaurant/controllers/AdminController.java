@@ -2,8 +2,7 @@ package com.restaurant.controllers;
 
 import com.restaurant.commands.request.EmployeeDTO;
 import com.restaurant.services.EmployeeService;
-import com.restaurant.services.UserService;
-import com.restaurant.views.UserPrincipal;
+import com.restaurant.views.EmployeeView;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,25 +13,36 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class AdminController {
 
-    private UserService userService;
     private EmployeeService employeeService;
 
-    @GetMapping("/users")
-    @PreAuthorize("hasRole('ADMIN')")
-    public Iterable<UserPrincipal> getAllUsers() {
-        return userService.getAllUsers();
-    }
-
-    @PostMapping("/employee/{username}")
+    @PostMapping("/employees/{username}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity createEmployee(@PathVariable String username, @RequestBody EmployeeDTO employeeDTO) {
         return employeeService.createEmployee(username, employeeDTO);
     }
 
-    @DeleteMapping("/users/{userId}")
+    @GetMapping("/employees/{employeeId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity deleteUser(@PathVariable Long userId) {
-        return userService.deleteUser(userId);
+    public EmployeeView getEmployeeById(@PathVariable Long employeeId) {
+        return employeeService.getEmployeeById(employeeId);
+    }
+
+    @GetMapping("/employees")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Iterable<EmployeeView> getAllUsers() {
+        return employeeService.getAllEmployees();
+    }
+
+    @PutMapping("/employees/{employeeId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<EmployeeView> updateEmployee(@PathVariable Long employeeId, @RequestBody EmployeeDTO employeeDTO) {
+        return employeeService.updateEmployee(employeeId, employeeDTO);
+    }
+
+    @DeleteMapping("/employees/{employeeId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity deleteEmployee(@PathVariable Long employeeId) {
+        return employeeService.deleteEmployee(employeeId);
     }
 
 }

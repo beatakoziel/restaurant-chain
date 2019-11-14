@@ -28,9 +28,21 @@ public class UserController {
         return userService.getUserById(userId);
     }
 
+    @GetMapping("/users")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Iterable<UserPrincipal> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
     @PutMapping("/users/{userId}")
     @PreAuthorize("#userId == principal.id")
     public ResponseEntity<UserPrincipal> updateUser(@PathVariable Long userId, @RequestBody @Valid UserDTO userDTO) {
         return userService.updateUser(userId, userDTO);
+    }
+
+    @DeleteMapping("/users/{userId}")
+    @PreAuthorize("hasRole('ADMIN')")//TEST
+    public ResponseEntity deleteUser(@PathVariable Long userId) {
+        return userService.deleteUser(userId);
     }
 }
