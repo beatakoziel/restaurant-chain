@@ -71,6 +71,9 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     @Transactional
     public ResponseEntity deleteEmployee(Long employeeId) {
+        Employee employee = employeeJPARepository.findById(employeeId).orElseThrow(() -> new UsernameNotFoundException("User not found" + employeeId));
+        employee.getUserId().getRoles().removeIf(role -> (role.getName() != RoleName.ROLE_USER));
+        userRepository.save(employee.getUserId());
         employeeJPARepository.deleteById(employeeId);
         return ResponseEntity.ok(HttpStatus.ACCEPTED);
     }

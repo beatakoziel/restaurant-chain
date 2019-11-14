@@ -20,7 +20,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long employeeId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private User userId;
 
     @NotBlank

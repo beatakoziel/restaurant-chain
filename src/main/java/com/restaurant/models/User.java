@@ -41,6 +41,9 @@ public class User {
     @OneToMany(mappedBy = "reservationId")
     private Set<Reservation> reservations;
 
+    @OneToOne(mappedBy = "userId", cascade = CascadeType.REMOVE)
+    private Employee employee;
+
     public User(String username, @NotBlank String password, @Email String email, String phone, Set<Role> roles, Set<Reservation> reservations) {
         this.username = username;
         this.password = password;
